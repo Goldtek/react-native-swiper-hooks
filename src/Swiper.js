@@ -399,9 +399,57 @@ export default function Swiper(props) {
         )
     }
 
+    const leftCursor = () => {
+        let _scrollConfig = {
+            x: contentOffsetList[currIndex],
+            animated
+        }
+        console.log('contentOffsetList',contentOffsetList)
+        console.log('contentOffsetList',contentOffsetList[currIndex])
+        console.log('currIndex', currIndex)
+        console.log('length', contentOffsetList.length)
+        _scrollView.current && _scrollView.current.scrollTo && _scrollView.current.scrollTo(_scrollConfig);
+
+        setCurrIndex(contentOffsetList.length - 1 == currIndex ? 0 : currIndex + 1);
+    }
+
+    const rightCursor = () => {
+        let _scrollConfig = {
+            x: contentOffsetList[currIndex],
+            animated
+        }
+        console.log('contentOffsetList',contentOffsetList)
+        console.log('contentOffsetList',contentOffsetList[currIndex])
+        console.log('currIndex', currIndex)
+        _scrollView.current && _scrollView.current.scrollTo && _scrollView.current.scrollTo(_scrollConfig);
+
+        setCurrIndex(currIndex < 0 ? contentOffsetList.length - 1 : currIndex - 1);
+    }
+
+
+
+
+    //  cursor
+    const cursor = () => {
+
+        return (
+            <View style={styles.cursorContainer}>
+            <TouchableOpacity style={styles.cursor} activeOpacity={0.8} onPress={() => leftCursor()}>
+                <Text style={styles.arrow}>{'<'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cursor} activeOpacity={0.8} onPress={() => rightCursor()}>
+            <Text style={styles.arrow}>{'>'}</Text>
+            </TouchableOpacity>
+            </View>
+        )
+    }
+
+
+
     return (
         <View style={[styles.outermostContainer,{backgroundColor:boxBackgroundColor},outerContainerStyle]} ref={_container}>
             {/* scroll view */}
+            {cursor()}
             <ScrollView style={{
                             width:width,
                             height:transformMode ? transformModeMaxSize : height
@@ -443,6 +491,31 @@ const createStyle = ()=>{
             alignItems: 'center',
             position:'absolute',
             zIndex:99
+        },
+        cursorContainer: {
+            flexDirection: 'row', 
+            zIndex: 200, 
+            position: 'absolute', 
+            top: 0, 
+            height: 40, 
+            width: '100%', 
+            top: 120, 
+            alignItems: 'center', 
+            justifyContent: 'space-between'
+        },
+        cursor: {
+             backgroundColor: 'rgba(255,255,255,0.25)', 
+             height: 30, 
+             width: 30, 
+             borderRadius: 15, 
+             alignItems: 'center', 
+             justifyContent: 'center'
+        },
+        arrow: { 
+            fontWeight: '400', 
+            fontSize: 14, 
+            lineHeight: 30, 
+            color: 'rgba(255,255,255,0.5)'
         }
     })
 }
