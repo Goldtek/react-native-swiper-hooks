@@ -44,7 +44,7 @@ export default function Swiper(props) {
         scrollDuration=null,                                                                //[参数]翻页滚动持续时间(Android)
         showPagination=true,                                                                //[参数]是否显示页码器
         paginationPosition='bottom',                                                        //[参数]页码器位置
-        paginationOffset=5,                                                                 //[参数]页码器偏移量
+        paginationOffset=30,                                                                 //[参数]页码器偏移量
         paginationUnselectedSize=6,                                                         //[参数]页码点未选中态大小
         paginationSelectedSize=10,                                                          //[参数]页码点选中态大小
         paginationUnselectedColor='#fff',                                                   //[参数]页码点未选中态颜色
@@ -478,6 +478,7 @@ const createStyle = ()=>{
         outermostContainer:{
             position: 'relative',
             overflow: 'hidden',
+            borderRadius: 10
         },
         androidMask:{
             position: 'absolute',
@@ -501,7 +502,8 @@ const createStyle = ()=>{
             width: '100%', 
             top: 120, 
             alignItems: 'center', 
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            paddingHorizontal: 10,
         },
         cursor: {
              backgroundColor: 'rgba(255,255,255,0.25)', 
